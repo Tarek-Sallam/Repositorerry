@@ -1,0 +1,17 @@
+{
+  "name": "repositorerry",
+  "version": "1.0.0",
+  "description": "Orrerrrryyyyyyy",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}
