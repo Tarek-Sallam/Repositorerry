@@ -2,17 +2,18 @@ import calcs as c
 import os
 import json
 import math
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+# import matplotlib.pyplot as plt
+# from mpl_toolkits.mplot3d import Axes3D
 
 data_path = os.path.join(os.getcwd(), 'public', 'data')
 
 with open (os.path.join(data_path, 'keplar.json'), 'r') as f:
-    data = json.load(f)
+    data = json.load(f) 
 
 planets = ["Mercury" , "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
 
-delta_t = 10
+def_delta_t = 1
+max_keyframes = 500
 
 grav_constant = 6.674e-11
 sun_mass = 1.989e30
@@ -30,8 +31,12 @@ for planet in planets:
     long_peri = planet_data["long_peri"]
     long_node = planet_data["long_node"]
     orbital_time = 2 * math.pi *math.sqrt(math.pow(a*1.496e11,3)/(grav_constant*sun_mass))/86400
-
+    delta_t = def_delta_t
     n_keyframes = math.floor(orbital_time/delta_t)
+    if n_keyframes > max_keyframes:
+        n_keyframes = max_keyframes
+        delta_t = orbital_time/n_keyframes
+
     arg_peri = c.arg_peri(long_peri, long_node)
 
     T = c.convert_to_jed(5,10,2024,0)
@@ -50,11 +55,12 @@ for planet in planets:
             print(f"Step {_+1}/{n_keyframes}")
             print(f"Mean Longitude: {mean_long}, Mean Anomaly: {M}, Eccentric Anomaly: {E}")
             print(f"Position: {pos}\n")
-        T += (delta_t / 365.25)
+        T += (delta_t /(365.2 * 100))
     
-    pos_data[planet] = {"positions": positions}
+    pos_data[planet] = {"positions": positions, "relative_to": "Sun", "time_scale": delta_t}
 
-
+    with open (os.path.join(os.getcwd(), 'public', 'data', 'orbits.json'), 'w') as f:
+        f.write(json.dumps(pos_data, indent=4))
 
 #print(pos_data)
 
@@ -68,7 +74,7 @@ for planet in planets:
 #     "Jupiter": 'orange', "Saturn": 'gold', "Uranus": 'cyan', "Neptune": 'purple'
 # }
 
-#Plot the orbits
+    #Plot the orbits
 # for planet, data in pos_data.items():
 #     # Extract the x, y, z coordinates of each keyframe position
 #     x_vals = [pos[0] for pos in data["positions"]]
@@ -78,8 +84,8 @@ for planet in planets:
 #     # Plot each planet's orbit
 #     ax.scatter(x_vals, y_vals, z_vals, label=planet, s=10, color=colors[planet])
     
-    # Mark the starting position
-    #ax.scatter(x_vals[0], y_vals[0], z_vals[0], color=colors[planet], s=30)
+#     #Mark the starting position
+#     ax.scatter(x_vals[0], y_vals[0], z_vals[0], color=colors[planet], s=30)
 
 # x_vals = [pos[0] for pos in pos_data["Earth"]["positions"]]
 # y_vals = [pos[1] for pos in pos_data["Earth"]["positions"]]
@@ -110,41 +116,39 @@ for planet in planets:
 # # Show plot
 # plt.show()
 
-import math
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.animation import FuncAnimation
-
-# Your existing functions (e.g., arg_peri, convert_to_jed, etc.) would go here.
+# import math
+# import matplotlib.pyplot as plt
+# import numpy as np
+# from matplotlib.animation import FuncAnimation
 
 # Sample data creation (replace this with your actual data)
 # Simulating positions for Venus over 18 steps
  # Replace with actual positions
 
 # Set up the figure and axis
-fig, ax = plt.subplots()
-ax.set_xlim(-1.5, 1.5)  # Adjust limits based on your orbital data
-ax.set_ylim(-1.5, 1.5)
-ax.set_title("Venus Orbit Animation")
-ax.set_xlabel("X Position (AU)")
-ax.set_ylabel("Y Position (AU)")
-line, = ax.plot([], [], 'bo')  # 'bo' for blue points
+# fig, ax = plt.subplots()
+# ax.set_xlim(-1.5, 1.5)  # Adjust limits based on your orbital data
+# ax.set_ylim(-1.5, 1.5)
+# ax.set_title("Venus Orbit Animation")
+# ax.set_xlabel("X Position (AU)")
+# ax.set_ylabel("Y Position (AU)")
+# line, = ax.plot([], [], 'bo')  # 'bo' for blue points
 
-# Initialize the plot
-def init():
-    line.set_data([], [])
-    return line,
+# # Initialize the plot
+# def init():
+#     line.set_data([], [])
+#     return line,
 
-# Update function for the animation
-def update(frame):
-    x_data = [pos[0] for pos in pos_data["Venus"]["positions"][:frame + 1]]
-    y_data = [pos[1] for pos in pos_data["Venus"]["positions"][:frame + 1]]
-    line.set_data(x_data, y_data)
-    return line,
+# # Update function for the animation
+# def update(frame):
+#     x_data = [pos[0] for pos in pos_data["Venus"]["positions"][:frame + 1]]
+#     y_data = [pos[1] for pos in pos_data["Venus"]["positions"][:frame + 1]]
+#     line.set_data(x_data, y_data)
+#     return line,
 
-# Create the animation
-ani = FuncAnimation(fig, update, frames=len(positions), init_func=init,
-                    interval=100, blit=True)
+# # Create the animation
+# ani = FuncAnimation(fig, update, frames=len(positions), init_func=init,
+#                     interval=100, blit=True)
 
-# Show the plot
-plt.show()
+# # Show the plot
+# plt.show()
