@@ -1,15 +1,40 @@
 // calculates the argument of perihelion
-function arg_peri(long_peri, long_node) {
+export function arg_peri(long_peri, long_node) {
     return long_peri - long_node;
 }
 
+export function convertToJED(day, month, year, hour) {
+    // Adjust month and year for January and February
+    if (month < 3) {
+        month += 12;
+        year -= 1;
+    }
+
+    // Calculate Julian Day
+    const A = Math.floor(year / 100);
+    const B = 2 - A + Math.floor(A / 4);
+    
+    const JD = Math.floor(365.25 * (year + 4716)) +
+                Math.floor(30.6001 * (month + 1)) +
+                day + B - 1524.5;
+
+    // Convert to Julian Ephemeris Date
+    const JED = JD + (hour / 24);
+
+    return JED;
+}
+
+export function get_T(t) {
+    return (t - 2451545.0)/36525;
+}
+
 // calculates the adjusted mean longitude corresponding to J2000
-function mean_long(mean_long, mean_long_change, T) {
+export function mean_long(mean_long, mean_long_change, T) {
     return mean_long + mean_long_change * T;
 }
 
 // calculates the mean anomaly
-function mean_anomaly(mean_long, long_peri) {
+export function mean_anomaly(mean_long, long_peri) {
     let M = mean_long - long_peri;
     M % 360;
     if (M > 180)
@@ -18,13 +43,13 @@ function mean_anomaly(mean_long, long_peri) {
 }
 
 // converts an angle from radians to degrees
-function rad_to_deg(angle) {
+export function rad_to_deg(angle) {
     return angle * (180 / Math.PI)
 }
 
 // finds a close approximation for E given M and e, using the newton-raphson
 // numerical method
-function newton_raphson_kepler(M, e, tol, max_iter=100) {
+export function newton_raphson_kepler(M, e, tol=1e-10, max_iter=100) {
     let E;
     e < 0.8 ? E = M : E = Math.PI;
 
@@ -43,14 +68,14 @@ function newton_raphson_kepler(M, e, tol, max_iter=100) {
 }
 
 // gets the position relative to the orbital plane (2-d)
-function get_orbital_pos(E, e, a) {
+export function get_orbital_pos(E, e, a) {
     let x = a(Math.cos(E) - e);
     let y = a(Math.sqrt(1 - e*e))*Math.sin(E);
     return [x, y, 0]
 }
 
 // gets the position relative to the equatorial plane and the equinox (3-d)
-function get_relative_pos(orbital_pos, i, long_node, arg_peri) {
+export function get_relative_pos(orbital_pos, i, long_node, arg_peri) {
     let x = (Math.cos(arg_peri)*Math.cos(long_node) - Math.sin(arg_peri)*Math.sin(long_node)*Math.cos(i))*orbital_pos[0];
     x += (-Math.sin(arg_peri)*Math.cos(long_node) - Math.cos(arg_peri)*Math.sin(long_node)*Math.cos(i)) * orbital_pos[1];
 
