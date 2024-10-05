@@ -2,7 +2,7 @@ import math
 
 # calculates the argument of perihelion
 def arg_peri(long_peri, long_node):
-    return long_peri - long_node
+    return (long_peri - long_node) % 360
 
 def convert_to_jed(day, month, year, hour):
     # Adjust month and year for January and February
@@ -28,7 +28,7 @@ def get_T(t):
 
 # calculates the adjusted mean longitude corresponding to J2000
 def mean_long(mean_long, mean_long_change, T):
-    return mean_long + mean_long_change * T
+    return (mean_long + mean_long_change * T) % 360
 
 # calculates the mean anomaly
 def mean_anomaly(mean_long, long_peri):
@@ -36,11 +36,14 @@ def mean_anomaly(mean_long, long_peri):
     M = M % 360
     if M > 180:
         M -= 360
-    return M
+    return deg_to_rad(M)
 
 # converts an angle from radians to degrees
 def rad_to_deg(angle):
     return angle * (180 / math.pi)
+
+def deg_to_rad(deg):
+    return deg * (math.pi / 180)
 
 # finds a close approximation for E given M and e, using the Newton-Raphson method
 def newton_raphson_kepler(M, e, tol=1e-10, max_iter=100):
@@ -69,6 +72,10 @@ def get_orbital_pos(E, e, a):
 
 # gets the position relative to the equatorial plane and the equinox (3-d)
 def get_relative_pos(orbital_pos, i, long_node, arg_peri):
+    i = deg_to_rad(i)
+    long_node = deg_to_rad(long_node)
+    arg_peri = deg_to_rad(arg_peri)
+    
     x = (math.cos(arg_peri) * math.cos(long_node) - 
          math.sin(arg_peri) * math.sin(long_node) * math.cos(i)) * orbital_pos[0]
     x += (-math.sin(arg_peri) * math.cos(long_node) - 
