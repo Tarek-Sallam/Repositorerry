@@ -1,19 +1,28 @@
-import * as THREE from 'three';
+import { updatePov, onKeyDown, onKeyUp } from './userControls';
+import { renderer, planets, scene, camera } from './createScene';
+import { planetParams } from './planetData';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+// TODO: move up and down
+// TODO: create space boundary
+// TODO: can't go through planets
+// TODO: saturn rings (planet rings)
+// TODO: restructure code into different files
+// TODO: move faster with holding comand
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+const animate = () => {
+    
+    planets.forEach((planet, i) => {
+        planet.rotation.y += planetParams[i].rotationSpeed;
+    })
 
-camera.position.z = 5;
+    updatePov()
 
-function animate() {
-	renderer.render( scene, camera );
+	renderer.render(scene, camera);
 }
+
+// Event listeners
+document.addEventListener('keydown', onKeyDown);
+document.addEventListener('keyup', onKeyUp);
+
 renderer.setAnimationLoop( animate );
+
