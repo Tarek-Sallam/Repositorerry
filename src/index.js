@@ -36,7 +36,7 @@ const main = () => {
 async function startApp() {
     const initialized = await initialize();
     if (initialized) {
-        main(orbits);
+        main();
     } else {
         console.error('Failed to initialize the application');
     }
