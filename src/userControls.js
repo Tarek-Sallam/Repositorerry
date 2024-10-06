@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { camera } from './createScene';
+import { camera, initialCameraPosition, orbitControls } from './createScene';
 
 // this is the state that holds all the current pressed keys, if multiple keys are pressed, multi-directional movements are allowed
 const keyStates = {};
 
-const povMoveSpeed = 0.1;
-const povRotationSpeed = 0.02;
+const povMoveSpeed = 0.2;
+const povRotationSpeed = 0.03;
 const euler = new THREE.Euler(0, 0, 0, 'YXZ');
 
 // this boundary will not let the user leave after a certain distance
@@ -13,12 +13,22 @@ const euler = new THREE.Euler(0, 0, 0, 'YXZ');
 
 export const onKeyDown = (event) => {
     keyStates[event.code] = true;
+
+    // console.log(event.code)
+    
     if (event.code === 'Space') {
         resetPov();
     }
 }
 
 export const onKeyUp = (event) => {
+    // this if block fixes bug where pressing command and arrow key makes it move forever
+    if (event.code === 'MetaLeft' || event.code === 'MetaRight') {
+        for (const key in keyStates) {
+            keyStates[key] = false;
+        }
+    }
+    
     keyStates[event.code] = false;
 }
 
@@ -29,7 +39,12 @@ const resetPov = () => {
 }
 
 export const updatePov = () => {
+    let moved = false;
+
+    euler.setFromQuaternion(camera.quaternion, 'YXZ');
+
     const shiftPressed = keyStates['ShiftLeft'] || keyStates['ShiftRight'];
+    const tabPressed = keyStates['Tab']
 
     if (shiftPressed) {
         // Rotate the camera
@@ -43,6 +58,14 @@ export const updatePov = () => {
 
         // Apply rotation to camera
         camera.quaternion.setFromEuler(euler);
+
+        // moved = true;
+    } else if (tabPressed) {
+        
+        if (keyStates['ArrowUp']) camera.position.y += povMoveSpeed;
+        if (keyStates['ArrowDown']) camera.position.y -= povMoveSpeed;
+
+        // moved = true;
     } else {
         // Move in world space
         const direction = new THREE.Vector3();
@@ -54,5 +77,21 @@ export const updatePov = () => {
         if (keyStates['ArrowRight']) camera.position.addScaledVector(right, -povMoveSpeed);
         if (keyStates['ArrowUp']) camera.position.addScaledVector(direction, povMoveSpeed);
         if (keyStates['ArrowDown']) camera.position.addScaledVector(direction, -povMoveSpeed);
+
+        // moved = true;
+    }
+
+    for (const key in keyStates) {
+        if (keyStates[key] === true) {
+            moved = true;    
+        } 
+    }
+    
+    if (moved) {
+        const newDirection = new THREE.Vector3();
+        camera.getWorldDirection(newDirection);
+    
+        orbitControls.target.copy(camera.position).add(newDirection.multiplyScalar(10));
+        orbitControls.update();
     }
 }
