@@ -1,5 +1,5 @@
 import { updatePov, onKeyDown, onKeyUp } from './userControls';
-import { renderer, scene, camera } from './createScene';
+import { composer, renderer, scene } from './createScene';
 import { initializeAnimData, animateOrbits } from './vectorMath';
 
 import * as THREE from 'three';
@@ -53,7 +53,7 @@ const main = () => {
 
         updatePov()
 
-        renderer.render(scene, camera);
+        composer.render();
     }
 
     // Event listeners

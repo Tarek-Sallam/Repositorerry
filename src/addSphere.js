@@ -51,9 +51,21 @@ export const addSphere = (planetParams, scene) => {
     const sphereGeometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
     const texture = new THREE.TextureLoader().load(texturePath);
     texture.colorSpace = THREE.SRGBColorSpace;
-    const material = new THREE.MeshBasicMaterial({map: texture});
+    let material;
+    if (planetParams.name === 'Sun') {
+        material = new THREE.MeshBasicMaterial({map: texture});
+        //material.emissive = new THREE.Color(0xffffff);
+    } else {
+        material = new THREE.MeshStandardMaterial({map: texture});
+        //material.emissive = new THREE.Color(0x000000);
+    }
+    // if (planetParams.name === 'Sun') {
+    //     material.emissive = 0xffffff
+    //     console.log(material)
+    // }
+    
     const sphere = new THREE.Mesh(sphereGeometry, material);
-
+    
     
     sphere.position.set(x, y, z);
     sphere.name = planetParams.name
