@@ -10,7 +10,6 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-createInfoBox();
 
 const backgroundTexture = new THREE.TextureLoader().load( "textures/black-sky-with-few-stars.webp" );
 scene.background = backgroundTexture;
@@ -31,4 +30,5 @@ for (let planetParamsSingle of planetParams) {
     //console.log(planets)
 }
 
+createInfoBox();
 export {renderer, planets, scene, camera, initialCameraPosition, orbitControls}
