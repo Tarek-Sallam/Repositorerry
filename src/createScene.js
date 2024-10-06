@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { planetParams } from './planetData';
 import { addSphere } from './addSphere';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { createInfoBox } from './dataBox';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
@@ -14,6 +15,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
 
 const backgroundTexture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}textures/black-sky-with-few-stars.webp`);
 scene.background = backgroundTexture;
@@ -69,4 +71,5 @@ for (let planetParamsSingle of planetParams) {
     //console.log(planets)
 }
 
+createInfoBox();
 export {composer, renderer, planets, scene, camera, initialCameraPosition, orbitControls}
