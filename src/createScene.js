@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
@@ -23,11 +25,12 @@ const initialCameraPosition = new THREE.Vector3(5, 30, 15);
 camera.position.copy(initialCameraPosition);
 camera.lookAt(0, 0, 0);
 
-const planets = []
+const planets = {}
 
 // Loop where we create the planet objects
 for (let planetParamsSingle of planetParams) {
-    planets.push(addSphere(planetParamsSingle, scene));
+    planets[planetParamsSingle.name] = addSphere(planetParamsSingle, scene);
+    //console.log(planets)
 }
 
 export {renderer, planets, scene, camera, initialCameraPosition, orbitControls}
