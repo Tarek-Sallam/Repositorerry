@@ -6,7 +6,7 @@ let orbits;
 
 async function initialize() {
     try {
-        const response = await fetch('../public/data/orbits.json');
+        const response = await fetch(`${import.meta.env.BASE_URL}data/orbits.json`);
         orbits = await response.json();
         return true;
     } catch (error) {

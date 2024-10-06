@@ -4,7 +4,9 @@
   "description": "Orrerrrryyyyyyy",
   "main": "index.js",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +14,7 @@
     "three": "^0.169.0"
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "vite": "^5.4.8"
   }
 }

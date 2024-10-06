@@ -9,7 +9,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const backgroundTexture = new THREE.TextureLoader().load( "textures/black-sky-with-few-stars.webp" );
+const backgroundTexture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}textures/black-sky-with-few-stars.webp`);
 scene.background = backgroundTexture;
 scene.background.colorSpace = THREE.SRGBColorSpace;
 
