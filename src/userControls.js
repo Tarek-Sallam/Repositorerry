@@ -46,6 +46,7 @@ export const updatePov = () => {
     const shiftPressed = keyStates['ShiftLeft'] || keyStates['ShiftRight'];
     const tabPressed = keyStates['Tab']
 
+
     if (shiftPressed) {
         // Rotate the camera
         if (keyStates['ArrowLeft']) euler.y += povRotationSpeed;
