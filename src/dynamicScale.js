@@ -1,10 +1,11 @@
 export const scales = {
-    "Mercury": 10,
-    "Venus": 10,
-    "Earth": 10,
-    "Mars": 10,
-    "Jupiter": 10,
+    "default": 20,
+    "Mercury": 20,
+    "Venus": 20,
+    "Earth": 20,
+    "Mars": 20,
+    "Jupiter": 15,
     "Saturn": 10,
-    "Uranus": 10,
-    "Neptune": 10,
+    "Uranus": 8,
+    "Neptune": 6,
 }
