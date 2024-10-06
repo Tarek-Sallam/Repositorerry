@@ -1,5 +1,5 @@
 import { updatePov, onKeyDown, onKeyUp } from './userControls';
-import { renderer, planets, scene, camera } from './createScene';
+import { renderer, planets, scene, camera, controls } from './createScene';
 import { planetParams } from './planetData';
 
 // TODO: move up and down
@@ -11,6 +11,8 @@ import { planetParams } from './planetData';
 
 const animate = () => {
     
+    // controls.update(); 
+
     planets.forEach((planet, i) => {
         planet.rotation.y += planetParams[i].rotationSpeed;
     })
