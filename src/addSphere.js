@@ -56,7 +56,7 @@ export const addSphere = (planetParams, scene) => {
 
     
     sphere.position.set(x, y, z);
-    
+    sphere.name = planetParams.name
     scene.add(sphere);
     
     if (planetParams.ring) {
