@@ -2,12 +2,15 @@ import * as THREE from 'three';
 import { planetParams } from './planetData';
 import { addSphere } from './addSphere';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { createInfoBox } from './dataBox';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+createInfoBox();
 
 const backgroundTexture = new THREE.TextureLoader().load( "textures/black-sky-with-few-stars.webp" );
 scene.background = backgroundTexture;
