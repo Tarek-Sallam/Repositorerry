@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { camera } from './createScene';
+import { camera, initialCameraPosition } from './createScene';
 
 // this is the state that holds all the current pressed keys, if multiple keys are pressed, multi-directional movements are allowed
 const keyStates = {};
@@ -13,12 +13,16 @@ const euler = new THREE.Euler(0, 0, 0, 'YXZ');
 
 export const onKeyDown = (event) => {
     keyStates[event.code] = true;
+
+    // console.log(event.code)
     if (event.code === 'Space') {
         resetPov();
     }
 }
 
 export const onKeyUp = (event) => {
+
+
     keyStates[event.code] = false;
 }
 
@@ -30,6 +34,7 @@ const resetPov = () => {
 
 export const updatePov = () => {
     const shiftPressed = keyStates['ShiftLeft'] || keyStates['ShiftRight'];
+
 
     if (shiftPressed) {
         // Rotate the camera
