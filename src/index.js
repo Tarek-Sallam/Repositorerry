@@ -7,9 +7,11 @@ import { renderer, planets, scene, camera,} from './createScene';
 // make it so that user can't go through planets
 // make saturn's rings look good
 // implement controls for user to move faster if desired
-// translit orbit data into actual orbits
-// make smooth animations for the orbits
+// translit orbit data into actual orbits ✓
+// make smooth animations for the orbits ✓
 // make orbit controls not mess up the keyboard controls ✓
+// make orbit rings
+// dynamically space planets
 
 let orbits;
 
