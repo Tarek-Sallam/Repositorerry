@@ -1,6 +1,5 @@
 import { updatePov, onKeyDown, onKeyUp } from './userControls';
-import { renderer, planets, scene, camera, controls } from './createScene';
-import { planetParams } from './planetData';
+import { renderer, planets, scene, camera,} from './createScene';
 
 // TODO: move up and down
 // TODO: create space boundary
