@@ -19,11 +19,12 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const initialCameraPosition = new THREE.Vector3(5, 0, 15);
 camera.position.copy(initialCameraPosition);
 
-const planets = []
+const planets = {}
 
 // Loop where we create the planet objects
 for (let planetParamsSingle of planetParams) {
-    planets.push(addSphere(planetParamsSingle, scene));
+    planets[planetParamsSingle.name] = addSphere(planetParamsSingle, scene);
+    //console.log(planets)
 }
 
 export {renderer, planets, scene, camera, controls, initialCameraPosition}
