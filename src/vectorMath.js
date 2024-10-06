@@ -62,7 +62,8 @@ export const animateOrbits = (orbits, anim_data) => {
         let relative_p;
         if (relative_to in planets) {
             p = planets[relative_to].position;
-            relative_p = addVectors([p.x, p.y, p.z], next_position_v);
+            // relative_p = addVectors([p.x, p.y, p.z], next_position_v);
+            relative_p = [p.x, p.y, p.z] ;
         } else {
             relative_p = relative_to;
         }
