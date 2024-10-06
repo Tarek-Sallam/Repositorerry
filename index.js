@@ -81,7 +81,7 @@ const texturePaths = {
 			(texture) => {
 				// This callback gets called when the texture is successfully loaded
 				textures[key] = texture;
-				console.log(`${key} texture loaded`, texture); // Print loaded texture
+				// console.log(`${key} texture loaded`, texture); // Print loaded texture
 			},
 			undefined, // Optional: onProgress callback
 			(err) => {
@@ -103,12 +103,21 @@ const texturePaths = {
   const planetInfo = { 
 	sun:
 	{
-		geometry: [5,24,24], 
+		geometry: [6,24,24], 
 		texture: textures.sun, 
 		positionInit: [0,0,0], 
 		positions: [[5,10,5], [0,0,0] ], 
 		rotX: 0.02,
-		rotY: -0.02
+		rotY: -0.02,
+		orbitParams: {
+			a: 0.387098 ,      
+			e:  0.2056,        
+			i:  7.005 * (Math.PI / 180),    
+			omega: 77.45779628  * (Math.PI / 180), 
+			omegaNode: 49.57854 * (Math.PI / 180),
+			M0: 174.796  * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 4.0923344368 // Mean motion (rad/day)
+		  }
 	},
 	mercury:
 	{
@@ -117,7 +126,16 @@ const texturePaths = {
 		positionInit: [5,10,5], 
 		positions: [[5,10,5], [15,20,15] ], 
 		rotX: 0.02,
-		rotY: -0.02
+		rotY: -0.02,
+		orbitParams: {
+			a: 0.387098 ,      
+			e:  0.2056,        
+			i:  7.005 * (Math.PI / 180),    
+			omega: 77.45779628  * (Math.PI / 180), 
+			omegaNode: 49.57854 * (Math.PI / 180), 
+			M0: 174.796  * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 4.0923344368 // Mean motion (rad/day, for Mars)
+		  }
 	},
 
 	venus:
@@ -127,7 +145,16 @@ const texturePaths = {
 		positionInit: [15,10,5],
 		positions: [[5,10,5], [25,30,25] ], 
 		rotX: -0.01,
-		rotY: 0.03
+		rotY: 0.03,
+		orbitParams: {
+			a: 0.72333566,      
+			e: 0.00677672,      
+			i: 3.39467605 * (Math.PI / 180),    
+			omega: 131.60246718 * (Math.PI / 180),
+			omegaNode: 76.67984255 * (Math.PI / 180),
+			M0:  50.115 * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 1.6021302244 // Mean motion (rad/day, for Mars)
+		  }
 
 	},
 
@@ -138,7 +165,16 @@ const texturePaths = {
 		positionInit: [25,10,5],
 		positions: [[5,10,5], [35,40,65] ], 
 		rotX: 0.01,
-		rotY: 0.04
+		rotY: 0.04,
+		orbitParams: {
+			a: 1.00000,      
+			e: 0.01671123 ,        
+			i: -0.00001531* (Math.PI / 180),
+			omega: 102.93768193 * (Math.PI / 180),
+			omegaNode: 49.57854 * (Math.PI / 180),
+			M0: 357.51716  * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.9856002831 // Mean motion (rad/day, for Mars)
+		  }
 	},
 	moon:
 	{
@@ -147,7 +183,16 @@ const texturePaths = {
 		positionInit: [28,14,5],
 		positions: [[5,10,5], [17,22,75] ], 
 		rotX: 0.01,
-		rotY: 0.04
+		rotY: 0.04,
+		orbitParams: {
+			a: 0.00256955,      
+			e: 0.0549,          
+			i: 5.145 * (Math.PI / 180),
+			omega: 318.15 * (Math.PI / 180),
+			omegaNode: 125.08 * (Math.PI / 180),
+			M0: 115.3654 * (Math.PI / 180), // Mean anomaly at J2000 (radians)
+			n: 13.176358 * (Math.PI / 180) // Mean motion (radians per day)
+		  }
 	},
 
 	mars: 
@@ -157,50 +202,92 @@ const texturePaths = {
 		positionInit: [35,10,5],
 		positions: [[5,10,5], [17,22,-75] ], 
 		rotX: -0.01,
-		rotY: 0.06
+		rotY: 0.06,
+		orbitParams: {
+			a: 1.523679,      
+			e: 0.0934,        
+			i: 1.850 * (Math.PI / 180), 
+			omega: -23.94 * (Math.PI / 180),
+			omegaNode: 49.57854 * (Math.PI / 180),
+			M0: 19.412 * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.5240207766 // Mean motion (rad/day, for Mars)
+		  }
 	}, 
 	jupiter:
 	{
-		geometry: [3,24,24], 
+		geometry: [15,24,24], 
 		texture: textures.jupiter, 
 		positionInit: [45,10,5],
 		positions: [[5,10,5], [-17,22,75] ], 
 		rotX: 0.01,
-		rotY: -0.03
+		rotY: -0.03,
+		orbitParams: {
+			a: 5.20288700,     
+			e: 0.04838624,     
+			i: 1.30439695 * (Math.PI / 180),
+			omega: 14.72847983 * (Math.PI / 180),
+			omegaNode: 100.47390909 * (Math.PI / 180),
+			M0: 20.020 * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.0830853001 // Mean motion (rad/day, for Mars)
+		  }
 	},
 	saturn:
 	{
-		geometry: [3,24,24], 
+		geometry: [15,24,24], 
 		texture: textures.saturn, 
 		positionInit: [55,10,5],
 		positions: [[5,10,5], [17,-22,75] ], 
 		rotX: -0.02,
-		rotY: 0.01
+		rotY: 0.01,
+		orbitParams: {
+			a: 9.53667594,      
+			e: 0.05386179,      
+			i: 2.48599187 * (Math.PI / 180),
+			omega: 92.59887831 * (Math.PI / 180),
+			omegaNode: 113.66242448 * (Math.PI / 180),
+			M0: 317.020  * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.0334442282 // Mean motion (rad/day, for Mars)
+		  }
 	},
 	uranus:
 	{
-		geometry: [3,24,24], 
+		geometry: [15,24,24], 
 		texture: textures.uranus, 
 		positionInit: [55,10,5],
 		positions: [[5,10,5], [17,22,-75] ], 
 		rotX: 0.02,
-		rotY: -0.01
+		rotY: -0.01,
+		orbitParams: {
+			a: 19.18916464,      
+			e: 0.04725744,       
+			i: 0.77263783 * (Math.PI / 180),
+			omega: -170.95427630 * (Math.PI / 180),
+			omegaNode: 74.01692503 * (Math.PI / 180), 
+			M0: 142.5905  * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.0117625955 // Mean motion (rad/day, for Mars)
+		  }
 	},
 
 	neptune:
 	{
-		geometry: [3,24,24], 
+		geometry: [10,24,24], 
 		texture: textures.neptune, 
 		positionInit: [55,10,5],
 		positions: [[5,10,5], [17,-22,75] ], 
 		rotX: 0.007,
-		rotY: 0.007
+		rotY: 0.007,
+		orbitParams: {
+			a: 30.06992276,    
+			e: 0.00859048 ,    
+			i:  1.77004347   * (Math.PI / 180),
+			omega: 44.96476227 * (Math.PI / 180), 
+			omegaNode: 131.78422574 * (Math.PI / 180),
+			M0: 267.7673 * (Math.PI / 180),  // Mean anomaly at J2000 (radians)
+			n: 0.0059773172 // Mean motion (rad/day, for Mars)
+		  }
 	}
 }
 
-
-//   console.log(textures)
-// const planetTexture = new THREE.TextureLoader().load(texturePaths.mars)
 
 function addPlanet( props) 
 {
@@ -223,47 +310,133 @@ Object.entries(planetInfo).forEach(([key, value]) =>
 		planets[key] = addPlanet( value)	
 		// addPlanet(value)	
 	});
-
 	
+/////
+
+// Orbital elements for Mars (approximate and static for simplicity)
+  
+  // Kepler's Equation: M = E - e * sin(E)
+  // Solve iteratively using Newton's method
+  function solveKeplerEquation(M, e) {
+	const maxIterations = 100;
+	const tolerance = 1e-6;
+	let E = M;  // Initial guess: E = M
+	for (let i = 0; i < maxIterations; i++) {
+	  const deltaE = (M - (E - e * Math.sin(E))) / (1 - e * Math.cos(E));
+	  E += deltaE;
+	  if (Math.abs(deltaE) < tolerance) break;
+	}
+	return E;
+  }
+  
+  // Convert eccentric anomaly to true anomaly
+  function computeTrueAnomaly(E, e) {
+	const sinV = (Math.sqrt(1 - e * e) * Math.sin(E)) / (1 - e * Math.cos(E));
+	const cosV = (Math.cos(E) - e) / (1 - e * Math.cos(E));
+	return Math.atan2(sinV, cosV); // True anomaly in radians
+  }
+  
+  // Calculate the position of the planet in its orbit
+  function getPlanetPosition(elements, daysSinceEpoch) {
+	const { a, e, i, omega, omegaNode, M0, n } = elements;
+  
+	// Mean anomaly at given time
+	const M = M0 + n * daysSinceEpoch;
+  
+	// Solve for eccentric anomaly E
+	const E = solveKeplerEquation(M, e);
+  
+	// Calculate true anomaly (ν)
+	const trueAnomaly = computeTrueAnomaly(E, e);
+  
+	// Radial distance (r)
+	const r = a * (1 - e * e) / (1 + e * Math.cos(trueAnomaly));
+  
+	// Position in the orbital plane (x', y')
+	const xPrime = r * Math.cos(trueAnomaly);
+	const yPrime = r * Math.sin(trueAnomaly);
+  
+	// Now, convert to 3D space by rotating from orbital plane to ecliptic plane
+  
+	// First, rotate by argument of periapsis (ω)
+	const x1 = xPrime * Math.cos(omega) - yPrime * Math.sin(omega);
+	const y1 = xPrime * Math.sin(omega) + yPrime * Math.cos(omega);
+  
+	// Second, rotate by inclination (i)
+	const z2 = y1 * Math.sin(i);
+	const y2 = y1 * Math.cos(i);
+  
+	// Finally, rotate by longitude of ascending node (Ω)
+	const x = x1 * Math.cos(omegaNode) - y2 * Math.sin(omegaNode);
+	const y = x1 * Math.sin(omegaNode) + y2 * Math.cos(omegaNode);
+	const z = z2;
+  
+	// Return the 3D position (in AU)
+	return { x, y, z };
+  }
+  
+  // Example usage: Calculate Mars' position 100 days after epoch
+  const daysSinceEpoch = 100;  // Time since reference epoch (J2000)
+//   let marsPosition = getPlanetPosition(marsOrbitalElements, daysSinceEpoch);
+  
+//   console.log(`Mars position (AU): X=${marsPosition.x}, Y=${marsPosition.y}, Z=${marsPosition.z}`);
+
+/////
+let numDays = 100; 
 function animate() 
 {
-
 	// cube.rotateX(0.01)
 	// cube.rotateY(0.01)
 	// cube.rotateZ(0.01)
 
 	controls.update();
 
-		// console.log(planets.mars.isObject3D())
+	const auMultFactor = 30;
 
-		// console.log("planetInfo.mercury.targetPosition: ", planetInfo.mercury.targetPosition)
 
-		// for (let planet in planets) 
-		// {
+	numDays += 0.01;
 
-		// }
+
+		let earthCoords = {}
 
 		Object.entries(planets).forEach(([key, value]) =>
 		{
-			// console.log("key: ",key)
-			// console.log(value)
-			// console.log("planetInfo.key.rotX: ", planetInfo[key].rotX)
-// 
+
 			value.rotateX(planetInfo[key].rotX)
 			value.rotateY(planetInfo[key].rotY)
 
-			// console.log(value.targetPosition)
+			if (key == "sun"  )
+			{
+				return
+			}
 
-			  // Move the sphere towards the target position
-			  console.log("key: ", key)			  
-			//   console.log("planetInfo[key]: ", planetInfo[key])			  
-			  console.log("planetInfo[key].positions[1]: ", planetInfo[key].positions[1])
-			//   console.log("value.position.distanceTo(planetInfo[key].positions[1])", value.position.distanceTo(planetInfo[key].positions[1]) )
-			  console.log("value.position: ", value.position)
+			let objPos = getPlanetPosition(planetInfo[key].orbitParams, numDays);
+			objPos.x *= auMultFactor
+			objPos.y *= auMultFactor
+			objPos.z *= auMultFactor
 
-			const targetPosition = new THREE.Vector3(planetInfo[key].positions[1][0], planetInfo[key].positions[1][1], planetInfo[key].positions[1][2]);
-			console.log("targetPosition", targetPosition)
-			console.log("value.position.distanceTo(targetPosition): ", value.position.distanceTo(targetPosition))
+
+			if (key == "earth")
+			{
+				earthCoords = objPos;	
+			}
+
+			if (key == "moon")
+			{
+				objPos.x *= 100
+				objPos.y *= 100
+				objPos.z *= 100
+				value.position.set(objPos.x + earthCoords.x,objPos.y+earthCoords.y,objPos.z+earthCoords.z)
+
+			}
+			else
+			{
+				value.position.set(objPos.x,objPos.y,objPos.z)
+			}
+
+
+
+			// const targetPosition = new THREE.Vector3(planetInfo[key].positions[1][0], planetInfo[key].positions[1][1], planetInfo[key].positions[1][2]);
   			
 			// if (value.position.distanceTo(targetPosition) > 0.01) 
 			// 	{ 
@@ -281,12 +454,6 @@ function animate()
 		}
 	);
 
-
-		// planets.mars.rotateX(planetInfo.mars.rotX) 
-		// planets.mars.rotateY(planetInfo.mars.rotY) 
-
-		// planets.mars.rotation.x += 0.01;  // Rotate around X-axis
-		// planets.mars.rotation.y += 0.01;  // Rotate around Y-axis
 		
 	renderer.render( scene, camera );
 }
