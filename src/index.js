@@ -1,5 +1,6 @@
 import { updatePov, onKeyDown, onKeyUp } from './userControls';
 import { renderer, planets, scene, camera,} from './createScene';
+import { scales } from './dynamicScale.js'
 
 let orbits;
 
@@ -33,7 +34,6 @@ const scaleVector = (k, v) => {
 const main = () => {
     const framesPerSecond = 60;
     const m = 10; // time scaling factor (user)
-    const x = 20; // space scaling factor
     //const ts = orbits['Mercury'].time_scale; // time scaling factor (planet position keyframes)
     //const n_keyframes = orbits['Mercury'].positions.length; // number of keyframes
     //const w = (ts * m) / framesPerSecond;
@@ -47,7 +47,14 @@ const main = () => {
         let w = (m) / (framesPerSecond*ts);
         let current_index = 0;
         let distance = 0;
-        anim_data[key] = {"w": w, "current_index": current_index, "distance": distance, "n_keyframes": n_keyframes}
+        let x;
+        if (key in scales) {
+            x = scales[key];
+        } else {
+            x = scales["default"];
+        }
+
+        anim_data[key] = {"w": w, "current_index": current_index, "distance": distance, "n_keyframes": n_keyframes, "space_scaling": x}
     }
 
     const animate = () => {
@@ -60,6 +67,7 @@ const main = () => {
             let dist = anim_data[p_name].distance;
             let p = orbits[p_name].positions
             let relative_to = orbits[p_name].relative_to;
+            let x = anim_data[p_name].space_scaling;
             // calculate the interpolation vector
             
             let next_position_v;
