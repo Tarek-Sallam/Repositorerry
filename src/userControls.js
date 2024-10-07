@@ -104,8 +104,6 @@ export const updatePov = () => {
         let pos = planets[following].sphere.position;
         let xyz = new THREE.Vector3(pos.x + 10, pos.y + 10, pos.z + 10)
         camera.position.copy(xyz);
-        console.log(camera.position
-        )
         camera.lookAt(pos);
         // const newDirection = new THREE.Vector3(pos[0], pos[1], pos[2]);
         // camera.getWorldDirection(newDirection);
