@@ -17,19 +17,29 @@ import { orbits, anim_data } from './createScene';
 //     }
 // }
 
-const main = async () => {
-    const animate = () => {
-        animateOrbits(orbits, anim_data, textInfo)
+function animate()
+{
+    // animateOrbits(orbits, anim_data, textInfo)
+    animateOrbits(orbits, anim_data)
+    updatePov()
+    renderer.render(scene, camera);    
+}
 
-        updatePov()
+await new Promise(r => setTimeout(r, 100));
 
-        renderer.render(scene, camera);
-    }
+const main = async () => 
+    {
+        // const animate = () => 
+        // {
+        //     animateOrbits(orbits, anim_data, textInfo)
+        //     updatePov()
+        //     renderer.render(scene, camera);
+        // }
 
     // Event listeners
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
-    console.log(animate)
+    // console.log(animate)
     renderer.setAnimationLoop(animate);
 }
 

@@ -69,10 +69,11 @@ export const addSphere = (planetParams, scene) => {
     return sphere
 }
 
-export const addFloatingNames = (planetParams, scene) => {
-    let floatingNames = [];
+export const addFloatingNames = (planetParams, scene) => 
+    {
+        const floatingNames = {};
 
-    planetParams.forEach((planetParamsSingle)=> {
+        planetParams.forEach((planetParamsSingle)=> {
         const loader = new FontLoader();
 
         loader.load("./../public/data/Roboto_Light_Italic.json", (font) => {
@@ -91,7 +92,8 @@ export const addFloatingNames = (planetParams, scene) => {
             textMesh.position.set(planetParamsSingle.xyz[0], planetParamsSingle.xyz[1] + 2.5, planetParamsSingle.xyz[2]);
             // scene.add(textMesh)
 
-            floatingNames.push(textMesh)
+            // floatingNames.push(textMesh)
+            floatingNames[planetParamsSingle.name] = textMesh
 
             // textInfo[planetParamsSingle.name] = textMesh
         })

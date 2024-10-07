@@ -101,6 +101,7 @@ async function initScene() {
         });
 
         console.log(planets);
+
     } catch (error) {
         console.error('Error initializing scene:', error);
     }

@@ -36,7 +36,7 @@ export const initializeAnimData = (orbits) => {
     return anim_data
 }
 
-export const animateOrbits = (orbits, anim_data, textInfo) => {
+export const animateOrbits = (orbits, anim_data) => {
     for (const [p_name, planet] of Object.entries(planets)) {
         // get all the attributes
 
@@ -60,18 +60,35 @@ export const animateOrbits = (orbits, anim_data, textInfo) => {
         let v = addVectors(p[(cur + 1) % n_keyframes], scaleVector(-1, p[cur]));
         next_position_v = addVectors(p[cur], scaleVector(dist, v));
         let relative_p;
-        if (relative_to in planets) {
-            p = planets[relative_to].position;
+        if (relative_to in planets) 
+            {
+            p = planets[relative_to].sphere.position;
             // relative_p = addVectors([p.x, p.y, p.z], next_position_v);
             relative_p = [p.x, p.y, p.z] ;
-        } else {
-            relative_p = relative_to;
-        }
+            }
+             else 
+             {
+                relative_p = relative_to;
+            }
         next_position_v = addVectors(relative_p, scaleVector(x, next_position_v));
-        planet.position.fromArray(next_position_v);
+        planet.sphere.position.fromArray(next_position_v); 
+
+        // console.log("plane infot: ", planet)
+
+        // planet.ellipse.visible = false;
+
+        // console.log("p_name: ", p_name)
+
+        // if(p_name != "Sun")
+        // {
+        //     planet.ellipse.visible = false;
+        // }
+
+        // console.log("planet type of: ", typeof(planet.ellipse.visible))
+        // console.log("planet: ", planet.ellipse.visible)
 
         // textInfo[p_name].position
-        textInfo[p_name].position.fromArray([next_position_v[0] + 2 , next_position_v[1] + 2 , next_position_v[2]  ]);
+        // textInfo[p_name].position.fromArray([next_position_v[0] + 2 , next_position_v[1] + 2 , next_position_v[2]  ]);
 
         anim_data[p_name].distance = dist;
         anim_data[p_name].current_index = cur;
