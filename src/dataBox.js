@@ -114,9 +114,7 @@ export function createInfoBox() {
     function togglePlanetNames(visible) {
         console.log(`Planet names are now: ${visible ? 'visible' : 'hidden'}`);
         for (const [p_name, planet] of Object.entries(planets)) {
-            if (p_name !== "Sun") {
-                planet.floatingText.visible = visible;
-            }
+            planet.floatingText.visible = visible;
         }
         // Add logic to show/hide planet names in your scene
     }
