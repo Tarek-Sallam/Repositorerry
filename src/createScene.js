@@ -76,21 +76,21 @@ async function initScene() {
 
         createInfoBox();
 
-        console.log(orbits);
+        // console.log(orbits);
         const ellipses = addEllipses(orbits, scene);
         const floatingNames = await addFloatingNames(planetParams, scene);
-
-        console.log("floatingNames test: ", floatingNames)
+        
+        await new Promise(r => setTimeout(r, 100));
 
         planetParams.forEach((planetParamsSingle, i) => {
             planets[planetParamsSingle.name] = {
                 sphere: addSphere(planetParamsSingle, scene),
                 ellipse: ellipses[i],
                 floatingText: floatingNames[i],
+                textOffset: planetParamsSingle.textOffset
             };
         });
 
-        console.log(planets);
 
     } catch (error) {
         console.error('Error initializing scene:', error);
