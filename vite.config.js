@@ -12,7 +12,11 @@ export default defineConfig(({ command }) => {
   } else {
     // Build specific options
     return {
+
       base: '/Repositorerry/', 
+      esbuild: {
+        target: 'esnext',  // Set the ECMAScript target to ESNext for top-level await support
+      },
     };
   }
 });

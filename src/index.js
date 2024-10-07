@@ -24,11 +24,17 @@ function animate()
     updatePov()
     composer.render();    
 }
+const sleep = async () => {
+    await new Promise(r => setTimeout(r, 100));
+    composer.render();
+};
 
-await new Promise(r => setTimeout(r, 100));
+
+// sleep()
 
 const main = async () => 
 {
+    await new Promise(r => setTimeout(r, 100));
     // Event listeners
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
