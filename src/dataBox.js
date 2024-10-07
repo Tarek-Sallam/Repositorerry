@@ -17,6 +17,11 @@ export function createInfoBox() {
     infoBox.style.justifyContent = 'space-around';
     infoBox.style.alignItems = 'center';
 
+    const info = document.createElement('div');
+    info.style.padding = '3px';
+    info.style.border = '2px solid grey';
+    info.innerHTML = "Note: The position of the planets along the orbits is accurate, however, the size of the planets, and their orbits are scaled artistically";
+    infoBox.appendChild(info);
     // Store current time
     let currentTime = new Date();
     let live = true;
@@ -205,11 +210,11 @@ export function createInfoBox() {
         let pName = e.target.value;
         following = pName;
     }
-
-
     infoBox.appendChild(planetsContainer);
+
 
     planetsContainer.addEventListener('change', getSelectedOption);
     document.body.appendChild(infoBox);
+
 }
 export {following}
