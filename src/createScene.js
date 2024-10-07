@@ -14,7 +14,7 @@ import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 let orbits;
-let scene, camera, renderer, orbitControls, initialCameraPosition;
+let composer, scene, camera, renderer, orbitControls, initialCameraPosition;
 let anim_data;
 let planets = {};
 
@@ -41,7 +41,7 @@ async function initScene() {
         camera.lookAt(0, 0, 0);
 
             // create a new effect composer
-        const composer = new EffectComposer(renderer);
+        composer = new EffectComposer(renderer);
 
         // create a new renderPass
         const renderPass = new RenderPass(scene, camera);
@@ -53,7 +53,6 @@ async function initScene() {
         const outputPass = new OutputPass();
 
         // get the pixel ratio of the renderer
-        const pixelRatio = renderer.getPixelRatio();
 
         // fxaa config settings
 
@@ -74,12 +73,6 @@ async function initScene() {
 
         const light = new THREE.PointLight(new THREE.Color(0xffffff), 10, 1000, 0.2)
         scene.add(light);
-
-        // Loop where we create the planet objects
-        for (let planetParamsSingle of planetParams) {
-        planets[planetParamsSingle.name] = addSphere(planetParamsSingle, scene);
-        //console.log(planets)
-        }
 
         createInfoBox();
 
@@ -118,4 +111,4 @@ async function getOrbitData() {
 // Initialize the scene
 initScene();
 
-export { renderer, planets, scene, camera, initialCameraPosition, orbitControls, orbits, anim_data };
+export { composer, renderer, planets, scene, camera, initialCameraPosition, orbitControls, orbits, anim_data };
