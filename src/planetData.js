@@ -5,7 +5,8 @@ export const planetParams = [
         xyz: [0, 0, 0],
         colour: 0xFFFF00,
         texture: `${import.meta.env.BASE_URL}textures/8k_sun.jpg`,
-        rotationSpeed: 0.0004
+        rotationSpeed: 0.0004,
+        textOffset : 5,
     },
     {
         name: 'Mercury',
@@ -13,7 +14,8 @@ export const planetParams = [
         xyz: [10, 0, 0],
         colour: 0x7E7B7A,
         texture: `${import.meta.env.BASE_URL}textures/8k_mercury.jpg`,
-        rotationSpeed: 0.0017
+        rotationSpeed: 0.0017,
+        textOffset : 1,
     },
     {   
         name: 'Venus',
@@ -21,7 +23,8 @@ export const planetParams = [
         xyz: [18, 0, 0],
         colour: 0xD8BFD8,
         texture: `${import.meta.env.BASE_URL}textures/8k_venus.jpg`,
-        rotationSpeed: -0.0004
+        rotationSpeed: -0.0004,
+        textOffset : 1,
     },
     {   
         name: 'Earth',
@@ -29,7 +32,8 @@ export const planetParams = [
         xyz: [28, 0, 0],
         colour: 0x1E90FF,
         texture: `${import.meta.env.BASE_URL}textures/8k_earth.jpg`,
-        rotationSpeed: 0.001
+        rotationSpeed: 0.001,
+        textOffset : 1,
     },
     {
         name: 'Mars',
@@ -37,7 +41,8 @@ export const planetParams = [
         xyz: [38, 0, 0],
         colour: 0xFF4500,
         texture: `${import.meta.env.BASE_URL}textures/8k_mars.jpg`,
-        rotationSpeed: 0.0009
+        rotationSpeed: 0.0009,
+        textOffset : 1.5,
     },
     {
         name: 'Jupiter',
@@ -46,6 +51,7 @@ export const planetParams = [
         colour: 0xD2B48C,
         texture: `${import.meta.env.BASE_URL}textures/8k_jupiter.jpg`,
         rotationSpeed: 0.001,
+        textOffset : 3,
     },
     {   
         name: 'Saturn',
@@ -57,7 +63,8 @@ export const planetParams = [
         ring: {
             texture: `${import.meta.env.BASE_URL}textures/saturn_ring.jpg`,
             geometrySpecs: [1.25, 2.3]
-        }
+        },
+        textOffset : 3,
     },
     {   
         name: 'Uranus',
@@ -65,7 +72,8 @@ export const planetParams = [
         xyz: [86, 0, 0],
         colour: 0xADD8E6,
         texture: `${import.meta.env.BASE_URL}textures/2k_uranus.jpg`,
-        rotationSpeed: -0.0006
+        rotationSpeed: -0.0006,
+        textOffset : 3,
     },
     {
         name: 'Neptune',
@@ -73,6 +81,7 @@ export const planetParams = [
         xyz: [100, 0, 0],
         colour: 0x0000FF,
         texture: `${import.meta.env.BASE_URL}textures/2k_neptune.jpg`,
-        rotationSpeed: 0.0008
+        rotationSpeed: 0.0008,
+        textOffset : 3,
     },
 ]

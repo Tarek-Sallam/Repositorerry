@@ -78,7 +78,8 @@ export const addSphere = (planetParams, scene) => {
 
 export const addFloatingNames = (planetParams, scene) => 
     {
-        const floatingNames = {};
+        // const floatingNames = {};
+        const floatingNames = [];
 
         planetParams.forEach((planetParamsSingle)=> {
         const loader = new FontLoader();
@@ -97,16 +98,15 @@ export const addFloatingNames = (planetParams, scene) =>
 
             // Set the position of the text above the planet
             textMesh.position.set(planetParamsSingle.xyz[0], planetParamsSingle.xyz[1] + 2.5, planetParamsSingle.xyz[2]);
-            // scene.add(textMesh)
+            scene.add(textMesh)
 
             // floatingNames.push(textMesh)
-            floatingNames[planetParamsSingle.name] = textMesh
+            floatingNames.push(textMesh)
 
             // textInfo[planetParamsSingle.name] = textMesh
         })
     })
 
-    console.log("floating names inside: ", floatingNames)
     
     return floatingNames;
 }

@@ -73,21 +73,8 @@ export const animateOrbits = (orbits, anim_data) => {
         next_position_v = addVectors(relative_p, scaleVector(x, next_position_v));
         planet.sphere.position.fromArray(next_position_v); 
 
-        // console.log("plane infot: ", planet)
+        planet.floatingText.position.fromArray([next_position_v[0] + planet.textOffset, next_position_v[1]  +planet.textOffset, next_position_v[2] +2  ])
 
-        // planet.ellipse.visible = false;
-
-        // console.log("p_name: ", p_name)
-
-        // if(p_name != "Sun")
-        // {
-        //     planet.ellipse.visible = false;
-        // }
-
-        // console.log("planet type of: ", typeof(planet.ellipse.visible))
-        // console.log("planet: ", planet.ellipse.visible)
-
-        // textInfo[p_name].position
         // textInfo[p_name].position.fromArray([next_position_v[0] + 2 , next_position_v[1] + 2 , next_position_v[2]  ]);
 
         anim_data[p_name].distance = dist;
