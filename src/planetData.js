@@ -7,6 +7,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_sun.jpg`,
         rotationSpeed: 0.0004,
         textOffset : 5,
+        rotateParams : [0.2, 0.01],
     },
     {
         name: 'Mercury',
@@ -16,6 +17,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_mercury.jpg`,
         rotationSpeed: 0.0017,
         textOffset : 1,
+        rotateParams : [0.2, 0.04],
     },
     {   
         name: 'Venus',
@@ -25,6 +27,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_venus.jpg`,
         rotationSpeed: -0.0004,
         textOffset : 1,
+        rotateParams : [0.2, -0.05],
     },
     {   
         name: 'Earth',
@@ -34,6 +37,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_earth.jpg`,
         rotationSpeed: 0.001,
         textOffset : 1,
+        rotateParams : [0.2, 0.01],
     },
     {
         name: 'Mars',
@@ -43,6 +47,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_mars.jpg`,
         rotationSpeed: 0.0009,
         textOffset : 1.5,
+        rotateParams : [0.2, 0.009],
     },
     {
         name: 'Jupiter',
@@ -52,6 +57,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/8k_jupiter.jpg`,
         rotationSpeed: 0.001,
         textOffset : 3,
+        rotateParams : [0.2, 0.02],
     },
     {   
         name: 'Saturn',
@@ -65,6 +71,7 @@ export const planetParams = [
             geometrySpecs: [1.25, 2.3]
         },
         textOffset : 3,
+        rotateParams : [0.2, 0.01],
     },
     {   
         name: 'Uranus',
@@ -74,6 +81,7 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/2k_uranus.jpg`,
         rotationSpeed: -0.0006,
         textOffset : 3,
+        rotateParams : [0.2, -0.06],
     },
     {
         name: 'Neptune',
@@ -83,5 +91,6 @@ export const planetParams = [
         texture: `${import.meta.env.BASE_URL}textures/2k_neptune.jpg`,
         rotationSpeed: 0.0008,
         textOffset : 3,
+        rotateParams : [0.2, 0.08],
     },
 ]

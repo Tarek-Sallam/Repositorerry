@@ -34,7 +34,8 @@ const addRings = (planetParams, sphere) => {
 
     const ringMaterial = new THREE.MeshBasicMaterial({
         map: ringTexture,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        transparent: true
     });
     
     const rings = new THREE.Mesh(ringGeometry, ringMaterial);
@@ -67,6 +68,12 @@ export const addSphere = (planetParams, scene) => {
     
     sphere.position.set(x, y, z);
     sphere.name = planetParams.name
+
+    // console.log("planetParams: ", planetParams.rotateParams[0])
+
+    // sphere.rotateX = planetParams.rotateParams[0]
+    sphere.rotateY = planetParams.rotateParams[1]
+
     scene.add(sphere);
     
     if (planetParams.ring) {
