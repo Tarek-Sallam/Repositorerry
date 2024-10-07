@@ -88,7 +88,8 @@ async function initScene() {
                 sphere: addSphere(planetParamsSingle, scene),
                 ellipse: ellipses[i],
                 floatingText: floatingNames[i],
-                textOffset: planetParamsSingle.textOffset
+                textOffset: planetParamsSingle.textOffset,
+                rotateY : planetParamsSingle.rotateParams[1]
             };
         });
 

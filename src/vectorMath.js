@@ -73,10 +73,9 @@ export const animateOrbits = (orbits, anim_data) => {
         next_position_v = addVectors(relative_p, scaleVector(x, next_position_v));
         next_position_v = [next_position_v[0], next_position_v[2], next_position_v [1]];
         planet.sphere.position.fromArray(next_position_v); 
-
+        planet.sphere.rotation.y += (planet.rotateY/2);
+    
         planet.floatingText.position.fromArray([next_position_v[0] + planet.textOffset, next_position_v[1]  +planet.textOffset, next_position_v[2] +2  ])
-
-        // textInfo[p_name].position.fromArray([next_position_v[0] + 2 , next_position_v[1] + 2 , next_position_v[2]  ]);
 
         anim_data[p_name].distance = dist;
         anim_data[p_name].current_index = cur;
