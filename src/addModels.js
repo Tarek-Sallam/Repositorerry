@@ -91,7 +91,7 @@ export const addFloatingNames = (planetParams, scene) =>
         planetParams.forEach((planetParamsSingle)=> {
         const loader = new FontLoader();
 
-        loader.load("./../public/data/Roboto_Light_Italic.json", (font) => {
+        loader.load(`${import.meta.env.BASE_URL}data/Roboto_Light_Italic.json`, (font) => {
                 const textGeometry = new TextGeometry(planetParamsSingle.name, {
                 font: font,
                 size: 0.5,       // Size of the text
