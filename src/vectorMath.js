@@ -71,6 +71,7 @@ export const animateOrbits = (orbits, anim_data) => {
                 relative_p = relative_to;
             }
         next_position_v = addVectors(relative_p, scaleVector(x, next_position_v));
+        next_position_v = [next_position_v[0], next_position_v[2], next_position_v [1]];
         planet.sphere.position.fromArray(next_position_v); 
 
         // console.log("plane infot: ", planet)

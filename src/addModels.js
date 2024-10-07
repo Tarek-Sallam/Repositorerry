@@ -118,7 +118,7 @@ export const addEllipses = (orbits, scene) => {
 
     Object.entries(orbits).forEach(([key, value]) => {
         ellipsePoints.key = value.positions.map((item) => {
-            return(new THREE.Vector3(item[0] * scales[key], item[1] *scales[key], item[2] *scales[key]));
+            return(new THREE.Vector3(item[0] * scales[key], item[2] *scales[key], item[1] *scales[key]));
         })
 
         if (key !== "Sun") {

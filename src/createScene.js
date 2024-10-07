@@ -36,7 +36,7 @@ async function initScene() {
 
         orbitControls = new OrbitControls(camera, renderer.domElement);
 
-        initialCameraPosition = new THREE.Vector3(0, -45, -30);
+        initialCameraPosition = new THREE.Vector3(0, 30, -30);
         camera.position.copy(initialCameraPosition);
         camera.lookAt(0, 0, 0);
 
