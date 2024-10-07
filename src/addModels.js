@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import {FontLoader}  from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { scales } from './dynamicScale';
 
 const addRings = (planetParams, sphere) => {
     let ringGeometrySpecs = planetParams.ring.geometrySpecs
@@ -51,6 +54,7 @@ export const addSphere = (planetParams, scene) => {
     const sphereGeometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
     const texture = new THREE.TextureLoader().load(texturePath);
     texture.colorSpace = THREE.SRGBColorSpace;
+    //const material = new THREE.MeshBasicMaterial({map: texture});
     let material;
     if (planetParams.name === 'Sun') {
         material = new THREE.MeshBasicMaterial({map: texture});
@@ -59,13 +63,7 @@ export const addSphere = (planetParams, scene) => {
         material = new THREE.MeshStandardMaterial({map: texture});
         //material.emissive = new THREE.Color(0x000000);
     }
-    // if (planetParams.name === 'Sun') {
-    //     material.emissive = 0xffffff
-    //     console.log(material)
-    // }
-    
     const sphere = new THREE.Mesh(sphereGeometry, material);
-    
     
     sphere.position.set(x, y, z);
     sphere.name = planetParams.name
@@ -76,4 +74,66 @@ export const addSphere = (planetParams, scene) => {
     }
 
     return sphere
+}
+
+export const addFloatingNames = (planetParams, scene) => 
+    {
+        const floatingNames = {};
+
+        planetParams.forEach((planetParamsSingle)=> {
+        const loader = new FontLoader();
+
+        loader.load("./../public/data/Roboto_Light_Italic.json", (font) => {
+                const textGeometry = new TextGeometry(planetParamsSingle.name, {
+                font: font,
+                size: 0.5,       // Size of the text
+                depth: 0.05,    // Depth of the 3D text
+                curveSegments: 12, // Smoothness of the text curves
+                bevelEnabled: false // Optional bevel settings
+            });
+
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Material for the text
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+            // Set the position of the text above the planet
+            textMesh.position.set(planetParamsSingle.xyz[0], planetParamsSingle.xyz[1] + 2.5, planetParamsSingle.xyz[2]);
+            // scene.add(textMesh)
+
+            // floatingNames.push(textMesh)
+            floatingNames[planetParamsSingle.name] = textMesh
+
+            // textInfo[planetParamsSingle.name] = textMesh
+        })
+    })
+
+    console.log("floating names inside: ", floatingNames)
+    
+    return floatingNames;
+}
+
+export const addEllipses = (orbits, scene) => {
+    const ellipses = []
+
+    let ellipsePoints = {}
+
+    Object.entries(orbits).forEach(([key, value]) => {
+        ellipsePoints.key = value.positions.map((item) => {
+            return(new THREE.Vector3(item[0] * scales[key], item[1] *scales[key], item[2] *scales[key]));
+        })
+
+        if (key !== "Sun") {
+            const ellipseGeometry = new THREE.BufferGeometry().setFromPoints( ellipsePoints.key );
+
+            const ellipseMaterial = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+            // Create the final object to add to the scene
+            const ellipse = new THREE.Line( ellipseGeometry, ellipseMaterial );
+
+            ellipses.push(ellipse)
+            scene.add(ellipse)
+        } else {
+            ellipses.push('')
+        }
+    });
+
+    return ellipses
 }
