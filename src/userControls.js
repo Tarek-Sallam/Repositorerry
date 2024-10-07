@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { camera, initialCameraPosition, orbitControls } from './createScene';
+import { camera, initialCameraPosition, orbitControls, planets } from './createScene';
+import { following } from './dataBox.js'
 
 // this is the state that holds all the current pressed keys, if multiple keys are pressed, multi-directional movements are allowed
 const keyStates = {};
@@ -39,61 +40,76 @@ const resetPov = () => {
 }
 
 export const updatePov = () => {
-    let moved = false;
+    if (following === "Default") {
+        let moved = false;
 
-    euler.setFromQuaternion(camera.quaternion, 'YXZ');
+        euler.setFromQuaternion(camera.quaternion, 'YXZ');
 
-    const shiftPressed = keyStates['ShiftLeft'] || keyStates['ShiftRight'];
-    const tabPressed = keyStates['Tab']
+        const shiftPressed = keyStates['ShiftLeft'] || keyStates['ShiftRight'];
+        const tabPressed = keyStates['Tab']
 
 
 
-    if (shiftPressed) {
-        // Rotate the camera
-        if (keyStates['ArrowLeft']) euler.y += povRotationSpeed;
-        if (keyStates['ArrowRight']) euler.y -= povRotationSpeed;
-        if (keyStates['ArrowUp']) euler.x += povRotationSpeed;
-        if (keyStates['ArrowDown']) euler.x -= povRotationSpeed;
+        if (shiftPressed) {
+            // Rotate the camera
+            if (keyStates['ArrowLeft']) euler.y += povRotationSpeed;
+            if (keyStates['ArrowRight']) euler.y -= povRotationSpeed;
+            if (keyStates['ArrowUp']) euler.x += povRotationSpeed;
+            if (keyStates['ArrowDown']) euler.x -= povRotationSpeed;
 
-        // Clamp vertical rotation to avoid over-rotation
-        euler.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, euler.x));
+            // Clamp vertical rotation to avoid over-rotation
+            euler.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, euler.x));
 
-        // Apply rotation to camera
-        camera.quaternion.setFromEuler(euler);
+            // Apply rotation to camera
+            camera.quaternion.setFromEuler(euler);
 
-        // moved = true;
-    } else if (tabPressed) {
+            // moved = true;
+        } else if (tabPressed) {
+            
+            if (keyStates['ArrowUp']) camera.position.y += povMoveSpeed;
+            if (keyStates['ArrowDown']) camera.position.y -= povMoveSpeed;
+
+            // moved = true;
+        } else {
+            // Move in world space
+            const direction = new THREE.Vector3();
+            camera.getWorldDirection(direction);
+            const right = new THREE.Vector3();
+            right.crossVectors(camera.up, direction).normalize();
+
+            if (keyStates['ArrowLeft']) camera.position.addScaledVector(right, povMoveSpeed);
+            if (keyStates['ArrowRight']) camera.position.addScaledVector(right, -povMoveSpeed);
+            if (keyStates['ArrowUp']) camera.position.addScaledVector(direction, povMoveSpeed);
+            if (keyStates['ArrowDown']) camera.position.addScaledVector(direction, -povMoveSpeed);
+
+            // moved = true;
+        }
+
+        for (const key in keyStates) {
+            if (keyStates[key] === true) {
+                moved = true;    
+            } 
+        }
         
-        if (keyStates['ArrowUp']) camera.position.y += povMoveSpeed;
-        if (keyStates['ArrowDown']) camera.position.y -= povMoveSpeed;
-
-        // moved = true;
-    } else {
-        // Move in world space
-        const direction = new THREE.Vector3();
-        camera.getWorldDirection(direction);
-        const right = new THREE.Vector3();
-        right.crossVectors(camera.up, direction).normalize();
-
-        if (keyStates['ArrowLeft']) camera.position.addScaledVector(right, povMoveSpeed);
-        if (keyStates['ArrowRight']) camera.position.addScaledVector(right, -povMoveSpeed);
-        if (keyStates['ArrowUp']) camera.position.addScaledVector(direction, povMoveSpeed);
-        if (keyStates['ArrowDown']) camera.position.addScaledVector(direction, -povMoveSpeed);
-
-        // moved = true;
+        if (moved) {
+            const newDirection = new THREE.Vector3();
+            camera.getWorldDirection(newDirection);
+        
+            orbitControls.target.copy(camera.position).add(newDirection.multiplyScalar(10));
+            orbitControls.update();
+        }
     }
-
-    for (const key in keyStates) {
-        if (keyStates[key] === true) {
-            moved = true;    
-        } 
-    }
+    else {
+        let pos = planets[following].sphere.position;
+        let xyz = new THREE.Vector3(pos.x + 10, pos.y + 10, pos.z + 10)
+        camera.position.copy(xyz);
+        console.log(camera.position
+        )
+        camera.lookAt(pos);
+        // const newDirection = new THREE.Vector3(pos[0], pos[1], pos[2]);
+        // camera.getWorldDirection(newDirection);
     
-    if (moved) {
-        const newDirection = new THREE.Vector3();
-        camera.getWorldDirection(newDirection);
-    
-        orbitControls.target.copy(camera.position).add(newDirection.multiplyScalar(10));
-        orbitControls.update();
+        // orbitControls.target.copy(camera.position).add(newDirection.multiplyScalar(10));
+        // orbitControls.update();
     }
 }

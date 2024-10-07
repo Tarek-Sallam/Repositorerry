@@ -17,6 +17,7 @@ let orbits;
 let composer, scene, camera, renderer, orbitControls, initialCameraPosition;
 let anim_data;
 let planets = {};
+let track;
 
 
 async function initScene() {
