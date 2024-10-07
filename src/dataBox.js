@@ -1,5 +1,5 @@
 // Function to create and add a faded box to the scene
-import { camera, planets} from './createScene.js'
+import { camera, planets, m, renderer } from './createScene.js'
 let following = "Default";
 export function createInfoBox() {
     const infoBox = document.createElement('div');
@@ -18,19 +18,15 @@ export function createInfoBox() {
     infoBox.style.alignItems = 'center';
 
     // Store current time
-    let currentTime = new Date();
-    let live = true;
+    // let currentTime = new Date();
+    // let live = true;
 
     // Display current time
-    const text = document.createElement('div');
-    text.style.padding = '3px';
-    text.style.border = '2px solid grey';
-    text.innerHTML = `Time: ${currentTime.toLocaleString()}`; // Corrected to show full date and time
-    infoBox.appendChild(text);
+    
 
-    // Button to direct live time
+    //Button to direct live time
     const button = document.createElement('button');
-    button.innerHTML = 'LIVE';
+    button.innerHTML = 'Set Time Scale';
     button.style.width = '60%';
     button.style.padding = '5px';
     button.style.borderRadius = '4px';
@@ -43,11 +39,18 @@ export function createInfoBox() {
     // Slider to go through years
     const slider = document.createElement('input');
     slider.type = 'range';
-    slider.min = '-100';
+    slider.min = '0.1';
     slider.max = '100';
-    slider.value = '0'; // Set to middle by default
+    slider.value = '1'; // Set to middle by default
     slider.style.width = '80%';
     infoBox.appendChild(slider);
+
+    const text = document.createElement('div');
+    text.style.padding = '3px';
+    text.style.border = '2px solid grey';
+    text.innerHTML = `Scale: ${slider.value}`; // Corrected to show full date and time
+    infoBox.appendChild(text);
+    
 
     // Container for checkboxes
     const checkboxContainer = document.createElement('div');
@@ -124,27 +127,25 @@ export function createInfoBox() {
     nameCheck.addEventListener('change', () => {
         togglePlanetNames(!nameCheck.checked);
     });
-
+    // slider.addEventListener('change', () => {
+    //     m["m"] = slider.valueAsNumber;
+    // })
     // Update time display every second only in live mode
-    setInterval(() => {
-        if (live) {
-            currentTime = new Date();
-            text.innerHTML = `Time: ${currentTime.toLocaleString()}`; // Show full date and time
-        }
-    }, 1000);
+    // setInterval(() => {
+    //     if (live) {
+    //         currentTime = new Date();
+    //         text.innerHTML = `Time: ${currentTime.toLocaleString()}`; // Show full date and time
+    //     }
+    // }, 1000);
 
     // Update year with slider
     slider.addEventListener('input', () => {
-        live = false;
-        const adjYears = new Date(currentTime); // Create a new Date object
-        adjYears.setFullYear(currentTime.getFullYear() + parseInt(slider.value)); // Adjust the year
-        text.innerHTML = `Time: ${adjYears.toLocaleDateString()}`; // Display the adjusted date
+        text.innerHTML =  `Scale: ${slider.value}`; // Display the adjusted date
     });
 
     // Set live mode when "LIVE" button is clicked
     button.addEventListener('click', () => {
-        live = true;
-        slider.value = '0'; // Reset slider to the middle
+        m["m"] = slider.valueAsNumber // Reset slider to the middle
     });
 
     // Container for planet selection radio buttons

@@ -18,6 +18,7 @@ let composer, scene, camera, renderer, orbitControls, initialCameraPosition;
 let anim_data;
 let planets = {};
 let track;
+let m = {"m": 1}
 
 
 async function initScene() {
@@ -112,4 +113,4 @@ async function getOrbitData() {
 // Initialize the scene
 initScene();
 
-export { composer, renderer, planets, scene, camera, initialCameraPosition, orbitControls, orbits, anim_data };
+export { composer, renderer, planets, scene, camera, initialCameraPosition, orbitControls, orbits, anim_data, m };

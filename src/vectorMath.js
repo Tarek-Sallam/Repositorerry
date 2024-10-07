@@ -1,4 +1,4 @@
-import { planets } from './createScene.js'
+import { planets, m } from './createScene.js'
 import { scales } from './dynamicScale.js'
 
 // adds two vectors
@@ -13,14 +13,12 @@ const scaleVector = (k, v) => {
 
 export const initializeAnimData = (orbits) => {
     const framesPerSecond = 60;
-    const m = 10; // time scaling factor (user)
     
     let anim_data = {}
-
     for (const [key, value] of Object.entries(orbits)) {
         let ts = value.time_scale;
         let n_keyframes = value.positions.length;
-        let w = (m) / (framesPerSecond*ts);
+        //let w = (m["m"]) / (framesPerSecond*ts);
         let current_index = 0;
         let distance = 0;
         let x;
@@ -30,7 +28,7 @@ export const initializeAnimData = (orbits) => {
             x = scales["default"];
         }
 
-        anim_data[key] = {"w": w, "current_index": current_index, "distance": distance, "n_keyframes": n_keyframes, "space_scaling": x}
+        anim_data[key] = {"ts": ts, "m": m, "current_index": current_index, "distance": distance, "n_keyframes": n_keyframes, "space_scaling": x}
     }
 
     return anim_data
@@ -39,8 +37,9 @@ export const initializeAnimData = (orbits) => {
 export const animateOrbits = (orbits, anim_data) => {
     for (const [p_name, planet] of Object.entries(planets)) {
         // get all the attributes
-
-        let w = anim_data[p_name].w;
+        let m = anim_data[p_name].m.m;
+        let ts = anim_data[p_name].ts;
+        let w = m/(ts*60);
         let cur = anim_data[p_name].current_index;
         let n_keyframes = anim_data[p_name].n_keyframes;
         let dist = anim_data[p_name].distance;
