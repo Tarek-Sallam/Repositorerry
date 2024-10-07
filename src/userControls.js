@@ -34,8 +34,9 @@ export const onKeyUp = (event) => {
 
 const resetPov = () => {
     camera.position.copy(initialCameraPosition);
-    euler.set(0, 0, 0);
-    camera.quaternion.setFromEuler(euler);
+    camera.lookAt(0, 0, 0);
+    //euler.set(initialCameraPosition);
+    //camera.quaternion.setFromEuler(euler);
 }
 
 export const updatePov = () => {
