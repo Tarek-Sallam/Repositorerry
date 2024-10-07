@@ -36,7 +36,7 @@ export const initializeAnimData = (orbits) => {
     return anim_data
 }
 
-export const animateOrbits = (orbits, anim_data) => {
+export const animateOrbits = (orbits, anim_data, textInfo) => {
     for (const [p_name, planet] of Object.entries(planets)) {
         // get all the attributes
 
@@ -69,6 +69,10 @@ export const animateOrbits = (orbits, anim_data) => {
         }
         next_position_v = addVectors(relative_p, scaleVector(x, next_position_v));
         planet.position.fromArray(next_position_v);
+
+        // textInfo[p_name].position
+        textInfo[p_name].position.fromArray([next_position_v[0] + 2 , next_position_v[1] + 2 , next_position_v[2]  ]);
+
         anim_data[p_name].distance = dist;
         anim_data[p_name].current_index = cur;
     }
