@@ -1,7 +1,7 @@
 import { updatePov, onKeyDown, onKeyUp } from './userControls';
 import { animateOrbits } from './vectorMath';
 import { orbits, anim_data } from './createScene';
-import { composer, renderer, scene } from './createScene';
+import { initScene, composer, renderer, scene } from './createScene';
 
 // let orbits;
 
@@ -24,17 +24,13 @@ function animate()
     updatePov()
     composer.render();    
 }
-const sleep = async () => {
-    await new Promise(r => setTimeout(r, 100));
-    composer.render();
-};
 
 
 // sleep()
 
 const main = async () => 
 {
-    await new Promise(r => setTimeout(r, 100));
+    await initScene();
     // Event listeners
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);

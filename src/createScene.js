@@ -20,7 +20,7 @@ let planets = {};
 let track;
 
 
-async function initScene() {
+export async function initScene() {
     try {
         await getOrbitData();
         anim_data = initializeAnimData(orbits)
@@ -81,7 +81,7 @@ async function initScene() {
         const ellipses = addEllipses(orbits, scene);
         const floatingNames = await addFloatingNames(planetParams, scene);
         
-        await new Promise(r => setTimeout(r, 100));
+        await new Promise(r => setTimeout(r, 500));
 
         planetParams.forEach((planetParamsSingle, i) => {
             planets[planetParamsSingle.name] = {
@@ -111,6 +111,6 @@ async function getOrbitData() {
 }
 
 // Initialize the scene
-initScene();
+//initScene();
 
 export { composer, renderer, planets, scene, camera, initialCameraPosition, orbitControls, orbits, anim_data };
